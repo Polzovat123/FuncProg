@@ -10,15 +10,18 @@ main :: IO ()
 main = do print $ ((7.03 ** (1 - ((4.92) ** 0.5)))/(3 * 4.92 + tan(7.03)))
 
 2: 
+functor :: [Int] -> Bool
 functor l = (mod (maximum(l) - minimum(l)) 2) == 1
-funicator l = l !! 3 <> minimum(l)
+
+funicator :: [Int] -> Bool
+funicator l = not( (l !! 3) == minimum(l))
+
 task_2 l
- | functor(l) && funicator(l) == True = True
+ | (functor l) && (funicator l)  = True
  | otherwise = False
 
 main :: IO ()
-main = do print $ task_2([1, 2, 3, 4, 5])
-
+main = do print $ ( (not ( (mod (maximum(l) - minimum(l)) 2) == 1 )) || ( not( (l !! 3) == minimum(l)) )) where l = [1, 2, 3, 4, 5]
 3: 
 
 task_1 = ((7.03 ** (1 - ((4.92) ** 0.5)))/(3 * 4.92 + tan(7.03))) 
