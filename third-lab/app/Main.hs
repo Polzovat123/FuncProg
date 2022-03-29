@@ -1,8 +1,9 @@
 module Main where
 
 import Lib
-import  Data.Char
+import Data.Char
 import Data.List
+
 {-
 1:
 
@@ -97,13 +98,64 @@ main = do
 
 4:
 
--}
 
+p1::(Int, Int) -> Bool
+p1 (c, d) = ((mod (c + d) 2) == 0)
 
-p1 (х,у) = ((x+y) mod 2) == 0 
-p2 (х,у) = x > y
-p3 (х,у) = (x mod 4) == (y mod 4) 
-p4 (х,у) = (x + (2 * y)) < 8
-p5 (х,у) = ((max x y) mod 2) == 1
+p2::(Int, Int) -> Bool
+p2 (c, d) = c > d
+
+p3::(Int, Int) -> Bool
+p3 (c, d) = (mod c 4) == (mod d 4) 
+
+p4::(Int, Int) -> Bool
+p4 (c, d) = (c + (2 * d)) < 8
+
+p5::(Int, Int) -> Bool
+p5 (c, d) = (mod (max c d) 2) == 1
+
+rvs::[(a,a)]->[(a,a)]
+rvs [] = []
+rvs ((x, y):t) = (y, x):(rvs t)
+
+grouping::[(Int, Int)] -> [[(Int, Int)]]
+grouping l = groupBy fun l
+		where fun (x,_) (xx,_) = x == xx
+
+task _ [] = False
+task func (x:xs) 
+	| func x == True = True
+	| otherwise = task func xs
+
+rool _ [] = []
+rool func (x:xs) = (task func x):(rool func xs) 
+
+pp1 = rool p1
 
 main = do
+	let r_input = rvs input
+	print input
+	print (grouping input)
+	print (pp1 (grouping input))
+	where input = [(1,2), (1,3), (3,4), (4,4)]
+
+5:
+
+6:
+
+merge [] ys = ys
+merge (x:xs) ys = x:merge ys xs
+
+all_combine main_age runner 
+	| main_age + 15 < runner = []
+	| otherwise = (main_age, runner):(all_combine main_age (runner+1))
+
+findAge::Int->Int->[(Int, Int)]
+findAge a b 
+	| a == b = [(90, 90)] 
+	| otherwise = (merge (all_combine a (a-15))  (findAge (a+1) b))
+
+main = do
+	print (findAge 18 90)
+-}
+
